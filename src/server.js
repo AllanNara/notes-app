@@ -3,7 +3,8 @@ const express = require('express');
 const morgan = require('morgan')
 const { create } = require('express-handlebars');
 
-const allRoutes = require('./routes/index.routes');
+const indexRoutes = require('./routes/index.routes');
+const notesRoutes = require('./routes/notes.routes');
 
 
 // Initializations
@@ -31,7 +32,8 @@ app.use(morgan('dev'))
 
 
 // Routes
-app.use(allRoutes)
+app.use(indexRoutes)
+app.use(notesRoutes)
 
 // Static files
 app.use(express.static(publicPath))
