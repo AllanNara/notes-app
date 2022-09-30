@@ -2,7 +2,7 @@ const path = require('path');
 const express = require('express');
 const morgan = require('morgan')
 const { create } = require('express-handlebars');
-
+const methodOverride = require('method-override')
 const indexRoutes = require('./routes/index.routes');
 const notesRoutes = require('./routes/notes.routes');
 
@@ -25,8 +25,10 @@ app.engine('.hbs', hbs.engine);
 app.set('view engine', '.hbs');
 
 // Middlewares
-app.use(express.urlencoded({ extended: false }));
-app.use(morgan('dev'))
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(morgan('dev'));
+app.use(methodOverride('_method'))
 
 // Global variables
 

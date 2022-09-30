@@ -9,7 +9,7 @@ const createNewNote = async (req, res) => {
 
     const newNote = new Note({title, description});
     await newNote.save()
-    res.send('new note');
+    res.redirect('/notes');
 };
 
 const renderNotes = async (req, res) => {
@@ -18,16 +18,26 @@ const renderNotes = async (req, res) => {
 
 };
 
-const renderEditForm = (req, res) => {
-    res.send('render edit form');
+const renderEditForm = async (req, res) => {
+    const { id } = req.params;
+    
+    const note = await Note.findById(id).lean();
+    res.render('notes/edit-note', { note });
 };
 
-const updateNote = (req, res) => {
-    res.send('update note');
+const updateNote = async (req, res) => {
+    const { title, description } = req.body;
+    const { id } = req.params;
+
+    await Note.findByIdAndUpdate(id, {title, description})
+    res.redirect('/notes');
 };
 
-const deleteNote = (req, res) => {
-    res.send('update note');
+const deleteNote = async (req, res) => {
+    const { id } = req.params;
+
+    await Note.findByIdAndDelete(id);
+    res.redirect('/notes');
 };
 
 
