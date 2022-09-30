@@ -8,6 +8,7 @@ const session = require('express-session');
 
 const indexRoutes = require('./routes/index.routes');
 const notesRoutes = require('./routes/notes.routes');
+const usersRoutes = require('./routes/users.routes');
 
 
 // Initializations
@@ -45,12 +46,13 @@ app.use(flash())
 // Global variables
 app.use((req, res, next) => {
     res.locals.success_msg = req.flash('success_msg');
-    next()
+    next();
 })
 
 // Routes
 app.use(indexRoutes)
 app.use(notesRoutes)
+app.use(usersRoutes)
 
 // Static files
 app.use(express.static(publicPath))
