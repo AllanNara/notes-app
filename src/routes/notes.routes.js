@@ -13,18 +13,21 @@ const {
 const { isAuthenticated } = require('../middlewares/auth');
 const { isOwnership } = require("../middlewares/owner");
 
+// Middleware
+router.use('/', isAuthenticated)
+
 // New note
-router.get("/notes/add", isAuthenticated, renderNoteForm);
-router.post("/notes/add", isAuthenticated, createNewNote);
+router.get("/add", renderNoteForm);
+router.post("/add", createNewNote);
 
 // Get all notes
-router.get("/notes", isAuthenticated, renderNotes);
+router.get("/", renderNotes);
 
 // Edit notes
-router.get("/notes/edit/:id", isAuthenticated, isOwnership ,renderEditForm);
-router.put("/notes/edit/:id", isAuthenticated, isOwnership ,updateNote);
+router.get("/edit/:id", isOwnership ,renderEditForm);
+router.put("/edit/:id", isOwnership ,updateNote);
 
 // Delete notes
-router.delete("/notes/delete/:id", isAuthenticated, isOwnership, deleteNote);
+router.delete("/delete/:id", isOwnership, deleteNote);
 
 module.exports = router;

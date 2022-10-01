@@ -1,4 +1,5 @@
 require('dotenv').config()
+require('./src/routes')
 
 const app = require('./src/server')
 require('./database')

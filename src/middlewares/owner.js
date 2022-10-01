@@ -1,4 +1,4 @@
-const Note = require('../models/Note')
+const { Note } = require('../models')
 
 const isOwnership = async (req, res, next) => {
     const { id } = req.params;

@@ -11,12 +11,12 @@ const {
 
 const { isAuthenticated } = require('../middlewares/auth');
 
-router.get('/users/register', renderRegisterForm);
-router.post('/users/register', registerUser)
+router.get('/register', renderRegisterForm);
+router.post('/register', registerUser)
 
-router.get('/users/login', renderLogInForm);
-router.post('/users/login', logIn);
+router.get('/login', renderLogInForm);
+router.post('/login', logIn);
 
-router.get('/users/logout', isAuthenticated, logOut);
+router.get('/logout', isAuthenticated, logOut);
 
 module.exports = router

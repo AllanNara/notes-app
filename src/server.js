@@ -7,9 +7,10 @@ const methodOverride = require('method-override')
 const { create } = require('express-handlebars');
 const flash = require("connect-flash");
 
-const indexRoutes = require('./routes/index.routes');
-const notesRoutes = require('./routes/notes.routes');
-const usersRoutes = require('./routes/users.routes');
+const routes = require('./routes')
+// const indexRoutes = require('./routes/index.routes');
+// const notesRoutes = require('./routes/notes.routes');
+// const usersRoutes = require('./routes/users.routes');
 
 
 // Initializations
@@ -56,9 +57,10 @@ app.use((req, res, next) => {
 })
 
 // Routes
-app.use(indexRoutes)
-app.use(notesRoutes)
-app.use(usersRoutes)
+app.use(routes)
+// app.use(indexRoutes)
+// app.use(notesRoutes)
+// app.use(usersRoutes)
 
 // Static files
 app.use(express.static(publicPath))
