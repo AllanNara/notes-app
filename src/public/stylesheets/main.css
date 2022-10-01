@@ -1,7 +1,23 @@
+:root {
+    --primary-color: #333533;
+    --second-color: #ffb700;
+}
+
 body {
-    background-color: #1488cc;
+    background-color: var(--primary-color);
 }
 
 .logo {
     width: 40%;
+}
+
+.note-cards {
+    height: 12rem;
+    border-radius: 10px;
+    background-color: var(--second-color);
+}
+
+.btn-bgnote {
+    background-color: var(--second-color);
+    border-radius: 200px;
 }

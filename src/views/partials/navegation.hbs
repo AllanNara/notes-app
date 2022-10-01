@@ -1,57 +1,32 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <div class="container">
-    <span class="navbar-brand user-select-none">Notes-app</span>
-    <button
-      class="navbar-toggler"
-      type="button"
-      data-toggle="collapse"
-      data-target="#navbarNav"
-      aria-controls="navbarNav"
-      aria-expanded="false"
-      aria-label="Toggle navigation"
-    >
-      <span class="navbar-toggler-icon"></span>
-    </button>
+    {{#if isAuthenticated}}
+      <a class="navbar-brand" href="/notes">Notes App</a>
+    {{else}}
+      <a class="navbar-brand" href="/users/login">Notes App</a>
+    {{/if}}
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav">
-        <li class="nav-item active">
-          <a class="nav-link" href="/">Home
-            <span class="sr-only">(current)</span>
-          </a>
-        </li>
         <li class="nav-item">
           <a class="nav-link" href="/about">About</a>
         </li>
       </ul>
       <ul class="navbar-nav ml-auto">
-        <!-- DROPDOWN BY BOOTSTRAP 4 -->
+        <!-- BOOTSTRAP 4 -->
         {{#if isAuthenticated}}
-        <li class="nav-item dropdown">
-          <a
-            class="nav-link dropdown-toggle"
-            href="#"
-            id="navbarDropdown"
-            role="button"
-            data-toggle="dropdown"
-            aria-haspopup="true"
-            aria-expanded="false"
-          >
-            Notes
-          </a>
-          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" href="/notes">All notes</a>
-            <a class="dropdown-item" href="/notes/add">Add a note</a>
-            <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="/users/logout">Log out</a>
-          </div>
-        </li>
+          <li class="nav-item">
+            <a href="/notes/add" class="nav-link">Add a note</a>
+          </li>
+          <li class="nav-item">
+            <a href="/users/logout" class="nav-link">Log out</a>
+          </li>
         {{else}}
-        <li class="nav-item">
-          <a href="/users/login" class="nav-link">Login</a>
-        </li>
-        <li class="nav-item">
-          <a href="/users/register" class="nav-link">Register</a>
-        </li>
+          <li class="nav-item">
+            <a href="/users/login" class="nav-link">Login</a>
+          </li>
+          <li class="nav-item">
+            <a href="/users/register" class="nav-link">Register</a>
+          </li>
         {{/if}}
       </ul>
     </div>

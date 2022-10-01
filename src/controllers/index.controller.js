@@ -1,5 +1,8 @@
 const renderIndex = (req, res) => {
-    res.render('index');
+    if(req.isAuthenticated()){
+        return res.redirect('/notes');
+    };
+    res.redirect('/users/login')
 };
 
 const renderAbout = (req, res) => {

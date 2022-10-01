@@ -1,20 +1,29 @@
 <div class="row">
-    {{#each allNotes}}
-        <div class="col-md-3">
-            <div class="card">
-                <div class="card-body">
-                    <h4 class="card-title d-flex justify-content-between align-items-center">
-                        {{title}} <a href="/notes/edit/{{_id}}"><i class="fa-solid fa-pencil"></i></a>
-                    </h4>
-                    <p>{{description}}</p>
+  {{#each allNotes}}
+    <div class="col-md-4">
+      <div class="card text-dark mb-4 note-cards">
+        <div class="card-body">
+          <h4 class="card-title font-weight-normal d-flex justify-content-between align-items-center">
+            {{title}}
+            {{!-- <a href="/notes/edit/{{_id}}"><i class="fa-solid fa-pencil"></i></a> --}}
+            <div class="dropdown">
+                <button type="button" class="btn btn-bgnote dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <span class="sr-only">Toggle Dropdown</span>
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <a class="dropdown-item" href="/notes/edit/{{_id}}">Edit note</a>
                     <form action="/notes/delete/{{_id}}?_method=DELETE" method="POST">
                         <input type="hidden" name="_method" value="DELETE">
-                        <button class="btn btn-danger btn-block btn-sm" type="submit">
-                            Delete
-                        </button>
+                            <button class="dropdown-item bg-danger active" type="submit">
+                                Delete note
+                            </button>
                     </form>
                 </div>
             </div>
+          </h4>
+          <p class="card-text text-dark">{{description}}</p>
         </div>
-    {{/each}}
+      </div>
+    </div>
+  {{/each}}
 </div>
