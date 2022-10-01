@@ -7,7 +7,7 @@ const {
     renderLogInForm,
     logIn,
     logOut
-} = require('../controllers/users.controller')
+} = require('../controllers/users.controller');
 
 router.get('/users/register', renderRegisterForm);
 router.post('/users/register', registerUser)

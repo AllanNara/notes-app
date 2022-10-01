@@ -1,4 +1,5 @@
 const User = require('../models/User')
+const passport = require('passport');
 
 const renderRegisterForm = (req, res) => {
     res.render('users/register');
@@ -35,12 +36,19 @@ const renderLogInForm = (req, res) => {
     res.render('users/login');
 };
 
-const logIn = (req, res) => {
-    res.send('ok singin');
-};
+const logIn = passport.authenticate('local', {
+    failureRedirect: '/users/login',
+    successRedirect: '/notes',
+    failureFlash: true,    
+});
 
 const logOut = (req, res) => {
-    res.send('ok logout');
+    req.logout(err => {
+        if(err) throw new Error(err)
+        req.flash('success_msg', "You are logged out now.")
+        res.redirect('/')
+    });
+
 };
 
 module.exports = {
