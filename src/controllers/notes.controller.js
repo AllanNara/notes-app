@@ -7,14 +7,19 @@ const renderNoteForm = (req, res) => {
 const createNewNote = async (req, res) => {
     const { title, description } = req.body;
 
-    const newNote = new Note({title, description});
+    const newNote = new Note({
+        title, 
+        description,
+        user: req.user.id
+    });
     await newNote.save();
+
     req.flash("success_msg", "Note Added Successfully")
     res.redirect('/notes');
 };
 
 const renderNotes = async (req, res) => {
-    const allNotes = await Note.find().lean();
+    const allNotes = await Note.find({ user: req.user.id }).sort({ createdAt: 'desc' }).lean();
     res.render("notes/all-notes", { allNotes })
 };
 
