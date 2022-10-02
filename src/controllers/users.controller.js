@@ -6,25 +6,26 @@ const renderRegisterForm = (req, res) => {
 };
 
 const registerUser = async (req, res) => {
+    const { username, confirm_username, password, confirm_password } = req.body;
     const errors = []
-    const { name, email, password, confirm_password } = req.body;
     
     if(password !== confirm_password) errors.push({ text: "Password do not match."});
+    if(username !== confirm_username) errors.push({ text: "Username do not match."});
     if(password.length < 8) errors.push({ text: "Password must be at least 8 characters."});
 
-    const emailUser = await User.findOne({ email })
-    if(emailUser) errors.push({ text: "The email is alredy in use."});
+    const userFind = await User.findOne({ username })
+    if(userFind) errors.push({ text: "The username is alredy in use."});
 
     if(errors.length > 0) {
         res.render('users/register', {
             errors,
-            name,
-            email,
+            username,
             password,
+            confirm_username,
             confirm_password
         });
     } else {
-        const newUser = new User({ name, email, password });
+        const newUser = new User({ username, password });
         newUser.password = await newUser.encryptPassword(password);
         await newUser.save();
         req.flash('success_msg', 'You are registered successfully');

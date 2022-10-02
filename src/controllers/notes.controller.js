@@ -1,3 +1,4 @@
+const e = require('connect-flash');
 const { Note } = require('../models')
 
 const renderNoteForm = (req, res) => {
@@ -6,7 +7,19 @@ const renderNoteForm = (req, res) => {
 
 const createNewNote = async (req, res) => {
     const { title, description } = req.body;
+    const errors = []
 
+    if(title <= 0) errors.push(({ text: "Title cannot be empty."}));
+    if(description <= 0) {
+        errors.push(({ text: "Description cannot be empty."}));
+    } else if(description.length < 5 ) errors.push(({ text: "Descrition must be at least 5 characters"}));
+    if(errors.length > 0) {
+        return res.render('notes/new-note', {
+            errors,
+            title,
+            description
+        })
+    };
     const newNote = new Note({
         title, 
         description,
@@ -27,16 +40,36 @@ const renderEditForm = async (req, res) => {
     const { id } = req.params;
     
     const note = await Note.findById(id).lean();
-    res.render('notes/edit-note', { note });
+    const { title, description, _id } = note;
+
+    res.render('notes/edit-note', { 
+        _id,
+        title,
+        description    
+    });
 };
 
 const updateNote = async (req, res) => {
     const { title, description } = req.body;
     const { id } = req.params;
+    const errors = []
 
-    await Note.findByIdAndUpdate(id, {title, description});
-    req.flash("success_msg", "Note Updated Successfully");
-    res.redirect('/notes');
+    if(title <= 0) errors.push(({ text: "Title cannot be empty."}));
+    if(description <= 0) {
+        errors.push(({ text: "Description cannot be empty."}));
+    } else if(description.length < 5 ) errors.push(({ text: "Descrition must be at least 5 characters"}));
+    if(errors.length > 0) {
+        return res.render(`notes/edit-note`, {
+            errors,
+            _id: id,
+            title,
+            description
+        })
+    } else {
+        await Note.findByIdAndUpdate(id, {title, description});
+        req.flash("success_msg", "Note Updated Successfully");
+        res.redirect('/notes');
+    }
 };
 
 const deleteNote = async (req, res) => {

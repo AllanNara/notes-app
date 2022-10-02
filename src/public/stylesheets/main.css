@@ -12,7 +12,7 @@ body {
 }
 
 .note-cards {
-    height: 12rem;
+    height: auto;
     border-radius: 10px;
     background-color: var(--second-color);
 }
